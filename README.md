@@ -84,7 +84,7 @@ This project was bootstrapped and is being actively developed with [Firebase Stu
 ├── docs
 │   └── backend.json        # Schema definition for Firebase entities and Firestore structure
 ├── public                  # Static assets
-└── ...                     # Config files (tailwind, next, etc.)
+└── ...                     # Config files (tailwind, next, etc.) 
 ```
 
 ## 📜 Available Scripts
