@@ -17,7 +17,8 @@ import { useAuth } from "@/firebase";
 import { initiateEmailSignIn, initiateEmailSignUp } from "@/firebase/non-blocking-login";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Auth, FirebaseError } from "firebase/auth";
+import { Auth } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 interface AuthDialogProps {
   open: boolean;
@@ -52,7 +53,7 @@ export default function AuthDialog({ open, onOpenChange }: AuthDialogProps) {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
 
-  const handleAuthAction = async (action: (auth: Auth, email: string, password: string) => Promise<any> | void, email: string, pass: string) => {
+  const handleAuthAction = async (action: (auth: Auth, email: string, password: string) => Promise<any>, email: string, pass: string) => {
       if (!email || !pass) {
           toast({ variant: "destructive", title: "Missing fields", description: "Please enter both email and password."});
           return;
