@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Bot, Code, DragAndDrop, LayoutTemplate, Palette } from 'lucide-react';
+import { ArrowRight, Bot, Code, MousePointerClick, LayoutTemplate, Palette } from 'lucide-react';
 import { Icons } from '@/components/icons';
 import { placeholderImages } from '@/lib/placeholder-images';
 
@@ -43,7 +43,7 @@ function SiteFooter() {
 
 const features = [
   {
-    icon: <DragAndDrop className="h-10 w-10 text-primary" />,
+    icon: <MousePointerClick className="h-10 w-10 text-primary" />,
     title: 'Drag & Drop Editor',
     description: 'Visually build your website with a simple and intuitive drag-and-drop interface.',
   },
