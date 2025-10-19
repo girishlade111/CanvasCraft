@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-export type ComponentType = 'Text' | 'Button' | 'Section' | 'RawHTML' | 'Image' | 'Navbar' | 'Footer' | 'Form';
+export type ComponentType = 'Text' | 'Button' | 'Section' | 'RawHTML' | 'Image' | 'Navbar' | 'Footer' | 'Form' | 'Carousel';
 
 export type ComponentStyle = CSSProperties;
 

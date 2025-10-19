@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { Button } from '@/components/ui/button';
-import { Type, Minus, Square, Image as ImageIcon, PanelTop, PanelBottom, ClipboardList } from 'lucide-react';
+import { Type, Minus, Square, Image as ImageIcon, PanelTop, PanelBottom, ClipboardList, Code, GalleryHorizontal } from 'lucide-react';
 import { EditorContext } from '@/contexts/editor-context';
 import type { ComponentType } from '@/lib/editor-types';
 
@@ -14,6 +14,8 @@ const components: { name: ComponentType; icon: React.ReactNode }[] = [
   { name: 'Navbar', icon: <PanelTop className="h-5 w-5" /> },
   { name: 'Footer', icon: <PanelBottom className="h-5 w-5" /> },
   { name: 'Form', icon: <ClipboardList className="h-5 w-5" /> },
+  { name: 'Carousel', icon: <GalleryHorizontal className="h-5 w-5" /> },
+  { name: 'RawHTML', icon: <Code className="h-5 w-5" /> },
 ];
 
 export default function ComponentLibrary() {

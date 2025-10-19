@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateWebsiteTemplateFromPrompt } from "@/ai/flows/generate-website-template-from-prompt";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import EditorCarousel from "@/components/editor/editor-carousel";
 
 function WelcomePlaceholder({ onGenerateFromPrompt }: { onGenerateFromPrompt: () => void }) {
   return (
@@ -36,8 +37,15 @@ const defaultProps = {
   Navbar: {},
   Footer: {},
   Section: {},
-  RawHTML: { html: "" },
+  RawHTML: { html: "<div>Your HTML here</div>" },
   Form: {},
+  Carousel: {
+    images: [
+      { src: "https://picsum.photos/seed/carousel1/600/400", alt: "carousel image 1" },
+      { src: "https://picsum.photos/seed/carousel2/600/400", alt: "carousel image 2" },
+      { src: "https://picsum.photos/seed/carousel3/600/400", alt: "carousel image 3" },
+    ]
+  },
 };
 
 
@@ -140,6 +148,8 @@ export default function EditorPage() {
             <Button type="submit">Submit</Button>
           </form>
         );
+      case 'Carousel':
+        return <EditorCarousel images={component.props.images} />;
       default:
         return null;
     }
