@@ -13,7 +13,7 @@ export default {
         sans: ['var(--font-geist-sans)', 'Inter', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
         body: ['var(--font-geist-sans)', 'Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['var(--font-geist-sans)', 'Inter', 'sans-serif'],
         code: ['var(--font-geist-mono)', 'monospace'],
       },
       colors: {
