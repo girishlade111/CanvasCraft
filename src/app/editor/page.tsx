@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Zap, Icons } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { generateWebsiteTemplateFromPrompt } from "@/ai/flows/generate-website-template-from-prompt";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 function WelcomePlaceholder({ onGenerateFromPrompt }: { onGenerateFromPrompt: () => void }) {
   return (
@@ -123,6 +125,20 @@ export default function EditorPage() {
           <footer className="p-4 bg-background border-t text-center">
             <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} My Site. All rights reserved.</p>
           </footer>
+        );
+      case 'Form':
+        return (
+          <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" placeholder="Your Name" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="your@email.com" />
+            </div>
+            <Button type="submit">Submit</Button>
+          </form>
         );
       default:
         return null;
