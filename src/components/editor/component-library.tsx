@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { Button } from '@/components/ui/button';
-import { Type, Minus, Square, Image as ImageIcon } from 'lucide-react';
+import { Type, Minus, Square, Image as ImageIcon, PanelTop, PanelBottom } from 'lucide-react';
 import { EditorContext } from '@/contexts/editor-context';
 import type { ComponentType } from '@/lib/editor-types';
 
@@ -10,8 +10,9 @@ const components: { name: ComponentType; icon: React.ReactNode }[] = [
   { name: 'Text', icon: <Type className="h-5 w-5" /> },
   { name: 'Button', icon: <Square className="h-5 w-5" /> },
   { name: 'Section', icon: <Minus className="h-5 w-5" /> },
-  // Future components
-  // { name: 'Image', icon: <ImageIcon className="h-5 w-5" /> },
+  { name: 'Image', icon: <ImageIcon className="h-5 w-5" /> },
+  { name: 'Navbar', icon: <PanelTop className="h-5 w-5" /> },
+  { name: 'Footer', icon: <PanelBottom className="h-5 w-5" /> },
 ];
 
 export default function ComponentLibrary() {

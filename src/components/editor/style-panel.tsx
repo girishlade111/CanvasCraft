@@ -75,13 +75,23 @@ export default function StylePanel() {
         <p className="text-xs text-muted-foreground">{selectedComponent.id}</p>
       </div>
       
-      <Accordion type="multiple" defaultValue={['content', 'spacing', 'typography', 'background']} className="w-full">
+      <Accordion type="multiple" defaultValue={['content', 'spacing', 'typography', 'background', 'image']} className="w-full">
         { (selectedComponent.type === 'Text' || selectedComponent.type === 'Button') && (
             <AccordionItem value="content">
                 <AccordionTrigger>Content</AccordionTrigger>
                 <AccordionContent className="px-1 space-y-2">
                     <Label>Text</Label>
                     <Input value={selectedComponent.props.text || ""} onChange={(e) => handlePropChange('text', e.target.value)} />
+                </AccordionContent>
+            </AccordionItem>
+        )}
+
+        { selectedComponent.type === 'Image' && (
+             <AccordionItem value="image">
+                <AccordionTrigger>Image</AccordionTrigger>
+                <AccordionContent className="px-1 space-y-2">
+                    <Label>Source URL</Label>
+                    <Input value={selectedComponent.props.src || ""} onChange={(e) => handlePropChange('src', e.target.value)} />
                 </AccordionContent>
             </AccordionItem>
         )}

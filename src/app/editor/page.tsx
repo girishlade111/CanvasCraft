@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import Image from "next/image";
 import type { EditorComponent, ComponentType } from "@/lib/editor-types";
 import { EditorContext } from "@/contexts/editor-context";
 import EditorLayout from "@/components/editor/editor-layout";
 import { Button } from "@/components/ui/button";
-import { Zap } from "lucide-react";
+import { Zap, Icons } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { generateWebsiteTemplateFromPrompt } from "@/ai/flows/generate-website-template-from-prompt";
 
@@ -26,6 +27,18 @@ function WelcomePlaceholder({ onGenerateFromPrompt }: { onGenerateFromPrompt: ()
   );
 }
 
+const defaultProps = {
+  Text: { text: "Type something..." },
+  Button: { text: "Click me" },
+  Image: { src: "https://picsum.photos/seed/1/600/400" },
+  Navbar: {},
+  Footer: {},
+  Section: {},
+  RawHTML: { html: "" },
+  Form: {},
+};
+
+
 export default function EditorPage() {
   const [components, setComponents] = useState<EditorComponent[]>([]);
   const [selectedComponentId, setSelectedComponentId] = useState<string | null>(null);
@@ -36,20 +49,17 @@ export default function EditorPage() {
     const newComponent: EditorComponent = {
       id: `${type}-${Date.now()}`,
       type,
-      props: {},
+      props: defaultProps[type] || {},
       styles: {
         padding: "16px",
       },
     };
-    if (type === 'Text') newComponent.props.text = "Type something...";
-    if (type === 'Button') newComponent.props.text = "Click me";
-
     setComponents(prev => [...prev, newComponent]);
   };
   
   const updateComponent = useCallback((id: string, newComponent: Partial<EditorComponent>) => {
     setComponents(prev => 
-      prev.map(c => c.id === id ? { ...c, ...newComponent, styles: {...c.styles, ...newComponent.styles} } : c)
+      prev.map(c => c.id === id ? { ...c, ...newComponent, props: {...c.props, ...newComponent.props}, styles: {...c.styles, ...newComponent.styles} } : c)
     );
   }, []);
 
@@ -83,6 +93,42 @@ export default function EditorPage() {
     }
   };
 
+  const renderComponent = (component: EditorComponent) => {
+    switch (component.type) {
+      case 'Text':
+        return <p>{component.props.text}</p>;
+      case 'Button':
+        return <Button>{component.props.text}</Button>;
+      case 'Section':
+        return <div className="min-h-[100px] border-dashed border-2 border-gray-300 rounded-md p-4">Drop components here</div>;
+      case 'RawHTML':
+        return <div dangerouslySetInnerHTML={{ __html: component.props.html || "" }} />;
+      case 'Image':
+        return <Image src={component.props.src} alt="placeholder" width={600} height={400} className="w-full h-auto" />;
+      case 'Navbar':
+        return (
+          <nav className="flex items-center justify-between p-4 bg-background border-b">
+            <div className="flex items-center gap-2">
+              <p className="font-bold">My Site</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="#" className="text-sm">Home</a>
+              <a href="#" className="text-sm">About</a>
+              <a href="#" className="text-sm">Contact</a>
+            </div>
+          </nav>
+        );
+      case 'Footer':
+        return (
+          <footer className="p-4 bg-background border-t text-center">
+            <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} My Site. All rights reserved.</p>
+          </footer>
+        );
+      default:
+        return null;
+    }
+  };
+
 
   const contextValue = {
     components,
@@ -110,10 +156,7 @@ export default function EditorPage() {
                 onClick={() => setSelectedComponentId(component.id)}
                 className={`cursor-pointer transition-all duration-200 ${selectedComponentId === component.id ? 'ring-2 ring-primary ring-offset-2' : 'hover:ring-2 hover:ring-primary/50'}`}
               >
-                {component.type === 'Text' && <p>{component.props.text}</p>}
-                {component.type === 'Button' && <Button>{component.props.text}</Button>}
-                {component.type === 'Section' && <div className="min-h-[100px] border-dashed border-2 border-gray-300 rounded-md p-4">Drop components here</div>}
-                {component.type === 'RawHTML' && <div dangerouslySetInnerHTML={{ __html: component.props.html || "" }} />}
+                {renderComponent(component)}
               </div>
             ))}
           </div>
