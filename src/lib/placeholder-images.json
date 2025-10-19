@@ -5,6 +5,30 @@
       "description": "A dashboard view of a website builder.",
       "imageUrl": "https://images.unsplash.com/photo-1554306274-f23873d9a26c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3ZWJzaXRlJTIwYnVpbGRlciUyMHVpfGVufDB8fHx8MTc2MDg3MTczMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "website builder ui"
+    },
+    {
+      "id": "template-portfolio",
+      "description": "Portfolio",
+      "imageUrl": "https://images.unsplash.com/photo-1642132652860-471b4228023e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwb3J0Zm9saW8lMjB3ZWJzaXRlfGVufDB8fHx8MTc2MDg3MzIwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "portfolio website"
+    },
+    {
+      "id": "template-blog",
+      "description": "Blog",
+      "imageUrl": "https://images.unsplash.com/photo-1750816204148-5d02aff367cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxibG9nJTIwaG9tZXBhZ2V8ZW58MHx8fHwxNzYwODczODcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blog homepage"
+    },
+    {
+      "id": "template-ecommerce",
+      "description": "E-commerce",
+      "imageUrl": "https://images.unsplash.com/photo-1674027392887-751d6396b710?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmxpbmUlMjBzdG9yZXxlbnwwfHx8fDE3NjA4NjMyMzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "online store"
+    },
+    {
+      "id": "showcase-main",
+      "description": "A collage of website components.",
+      "imageUrl": "https://images.unsplash.com/photo-1667422380246-3bed910ffae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3ZWJzaXRlJTIwY29tcG9uZW50c3xlbnwwfHx8fDE3NjA4NzM4NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "website components"
     }
   ]
 }

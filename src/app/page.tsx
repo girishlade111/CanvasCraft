@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Bot, Code, MousePointerClick, LayoutTemplate, Palette } from 'lucide-react';
 import { Icons } from '@/components/icons';
 import { placeholderImages } from '@/lib/placeholder-images';
+import { Badge } from '@/components/ui/badge';
 
 function SiteHeader() {
   return (
@@ -34,7 +35,7 @@ function SiteFooter() {
     <footer className="py-6 md:px-8 md:py-0">
       <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-          Built by Firebase Studio.
+          Built by <a href="https://ladestack.in" target="_blank" rel="noopener noreferrer" className="font-medium underline underline-offset-4">Ladestack</a> & Firebase Studio.
         </p>
       </div>
     </footer>
@@ -71,6 +72,8 @@ const features = [
 
 export default function Home() {
   const heroImage = placeholderImages.find(p => p.id === 'hero-dashboard');
+  const templates = placeholderImages.filter(p => p.id.startsWith('template-'));
+  const showcaseImage = placeholderImages.find(p => p.id === 'showcase-main');
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -117,6 +120,7 @@ export default function Home() {
             </div>
           )}
         </section>
+        
         <section id="features" className="container space-y-12 py-8 md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-3xl flex-col items-center space-y-4 text-center">
             <h2 className="text-4xl font-bold tracking-tighter md:text-5xl">Features</h2>
@@ -124,9 +128,9 @@ export default function Home() {
               Everything you need to turn your idea into a stunning website, and nothing you don't.
             </p>
           </div>
-          <div className="mx-auto grid justify-center gap-8 sm:grid-cols-2 md:max-w-4xl md:grid-cols-3">
+          <div className="mx-auto grid justify-center gap-8 sm:grid-cols-2 md:max-w-4xl lg:grid-cols-3">
             {features.map((feature) => (
-              <div key={feature.title} className="flex flex-col items-center text-center gap-4">
+              <div key={feature.title} className="flex flex-col items-center text-center gap-4 rounded-lg border bg-card p-6 transition-all hover:shadow-lg">
                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-primary">
                     {feature.icon}
                   </div>
@@ -136,6 +140,64 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="templates" className="bg-secondary/30 py-16 md:py-24 lg:py-32">
+          <div className="container">
+            <div className="mx-auto flex max-w-3xl flex-col items-center space-y-4 text-center">
+              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl">Start with a Template</h2>
+              <p className="max-w-2xl leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+                Choose from a variety of professionally designed templates to get started quickly.
+              </p>
+            </div>
+            <div className="mx-auto mt-12 grid max-w-screen-xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {templates.map((template) => (
+                <div key={template.id} className="group relative overflow-hidden rounded-lg border shadow-sm transition-all hover:shadow-xl">
+                  <Image
+                    src={template.imageUrl}
+                    alt={template.description}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover transition-transform group-hover:scale-105"
+                    data-ai-hint={template.imageHint}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <h3 className="text-lg font-semibold text-primary-foreground">{template.description}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="showcase" className="py-16 md:py-24 lg:py-32">
+          <div className="container grid items-center gap-8 md:grid-cols-2 lg:gap-12">
+            <div className="space-y-4">
+              <Badge variant="outline">Powerful by Design</Badge>
+              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl">Build it your way</h2>
+              <p className="text-muted-foreground sm:text-lg">
+                Combine components to create unique layouts. From hero sections to contact forms, you have full control over the structure and style of your website. Let your creativity flow.
+              </p>
+              <Button asChild size="lg">
+                <Link href="/editor">
+                  Explore the Editor <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+             {showcaseImage && (
+              <div className="rounded-lg border overflow-hidden shadow-xl">
+                <Image
+                  src={showcaseImage.imageUrl}
+                  alt={showcaseImage.description}
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                  data-ai-hint={showcaseImage.imageHint}
+                />
+              </div>
+            )}
           </div>
         </section>
       </main>
