@@ -76,16 +76,20 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
-          <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-            <h1 className="font-headline text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+        <section className="relative space-y-6 py-16 md:py-24 lg:py-32 overflow-hidden">
+          <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[10px_10px] [mask-image:linear-gradient(to_bottom,white,transparent)] dark:bg-grid-slate-100/[0.03]"></div>
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background to-transparent"></div>
+           <div className="absolute -top-1/2 left-1/2 -z-10 h-[1000px] w-[1000px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#8734fe_40%,transparent)] opacity-20"></div>
+
+          <div className="container relative flex max-w-[64rem] flex-col items-center gap-4 text-center">
+            <h1 className="font-headline text-5xl font-black tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl">
               Build websites visually. No code required.
             </h1>
             <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
               CanvasCraft is a no-code website builder that helps you design and launch your ideas faster. Drag, drop, and customize. We'll handle the code.
             </p>
-            <div className="space-x-4">
-              <Button asChild size="lg">
+            <div className="space-x-4 mt-6">
+              <Button asChild size="lg" className="font-bold text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/30 transition-transform hover:scale-105">
                 <Link href="/editor">
                   Start Building for Free
                 </Link>
@@ -94,7 +98,7 @@ export default function Home() {
           </div>
           {heroImage && (
             <div className="container max-w-screen-xl mx-auto mt-12 lg:mt-20">
-              <div className="relative rounded-xl border bg-card shadow-xl">
+              <div className="relative rounded-xl border-2 border-primary/20 bg-card/50 shadow-2xl shadow-primary/10">
                  <Image
                   src={heroImage.imageUrl}
                   alt={heroImage.description}
@@ -104,7 +108,7 @@ export default function Home() {
                   data-ai-hint={heroImage.imageHint}
                   priority
                 />
-                 <div className="rounded-b-xl border-t p-2 bg-card/50">
+                 <div className="rounded-b-xl border-t border-primary/20 p-2 bg-card/50">
                     <div className="flex items-center gap-1.5">
                         <div className="h-3 w-3 rounded-full bg-red-500"></div>
                         <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
@@ -115,16 +119,16 @@ export default function Home() {
             </div>
           )}
         </section>
-        <section id="features" className="container space-y-6 bg-slate-50 dark:bg-transparent py-8 md:py-12 lg:py-24 rounded-xl">
+        <section id="features" className="container space-y-6 py-8 md:py-12 lg:py-24">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-headline text-3xl leading-[1.1] sm:text-3xl md:text-5xl font-bold">Features</h2>
+            <h2 className="font-headline text-4xl leading-[1.1] sm:text-4xl md:text-6xl font-black">Features</h2>
             <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
               Everything you need to turn your idea into a stunning website.
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
             {features.map((feature) => (
-              <div key={feature.title} className="relative overflow-hidden rounded-lg border bg-background p-2">
+              <div key={feature.title} className="relative overflow-hidden rounded-lg border bg-secondary/50 p-2 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
                 <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
                   {feature.icon}
                   <div className="space-y-2">
