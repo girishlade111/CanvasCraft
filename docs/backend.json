@@ -1,0 +1,185 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the CanvasCraft application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user.",
+          "format": "email"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the user."
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "name"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a website project created by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Project)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the project."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project was last updated.",
+          "format": "date-time"
+        },
+        "projectData": {
+          "type": "string",
+          "description": "JSON string containing the project's design data."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "name",
+        "createdAt",
+        "updatedAt",
+        "projectData"
+      ]
+    },
+    "Integration": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Integration",
+      "type": "object",
+      "description": "Represents an integration configured for a user's project.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the integration configuration."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "Reference to Project. (Relationship: Project 1:N Integration)"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of integration (e.g., Supabase, Firebase, Stripe, etc.)."
+        },
+        "configuration": {
+          "type": "string",
+          "description": "JSON string containing the configuration details for the integration."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the integration was configured.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the integration was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "projectId",
+        "type",
+        "configuration",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Path-based ownership ensures only the user can access their own profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores projects created by users. Path-based ownership ensures only the user can access their own projects.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}/integrations/{integrationId}",
+        "definition": {
+          "entityName": "Integration",
+          "schema": {
+            "$ref": "#/backend/entities/Integration"
+          },
+          "description": "Stores integrations configured for a user's project. Includes denormalized 'projectId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project."
+            },
+            {
+              "name": "integrationId",
+              "description": "The unique identifier for the integration."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization, specifically by including authorization-related data (like the `userId`) within subcollections where access depends on the parent document, removing the need for `get()` calls in security rules. Structural Segregation is employed to maintain homogeneous security postures within collections. Access modeling follows consistent patterns, such as path-based ownership for user-owned data and membership maps for collaborative data.\n\nThe structure is optimized to support QAPs by segregating data based on access control needs. For example, project data and integration configurations are stored in collections that ensure only the project owner or authorized members can access them.\n\nSpecifically, for Integrations, the `projectId` is included in each Integration document, facilitating direct access checks without needing to traverse up the hierarchy. This denormalization strategy is crucial for enabling atomic operations and simplifies security rules.\n"
+  }
+}
